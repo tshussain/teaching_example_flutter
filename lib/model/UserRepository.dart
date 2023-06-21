@@ -1,38 +1,81 @@
 import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/foundation.dart';
 import 'User.dart';
 
-class UserRepository {
+/// Repository (i.e. Model) that provides access to a Firestore
+///    database.  Change actions will notify listeners via the associated provider.
+class UserRepository extends ChangeNotifier {
   var db;
 
-  /** Initialize the firestore database and remember that db value */
-  UserRepository.initialize() {
+  /* Initialize the firestore database and remember that db value */
+  UserRepository() {
     db = FirebaseFirestore.instance;
   }
 
-  Future<List<User>> readData() async {
-    var results = await db.collection("user").get();
+  /// Reads all users from the database and returns a list of User.
+  ///   Return value is a future:  Future<List<User>>
+  Future<List<User>> getAllUsers() async {
+    var results = await db.collection("users").get();
     List<User> users = [];
-    for (var doc in results.data!.docs) {
-      Map<String, dynamic> userMap = jsonDecode(doc);
-      var user = User.fromJson(userMap);
+    for (var doc in results.docs) {
+      var user = User.fromJson(doc.data());
       users.add(user);
     }
 
     return users;
   }
 
-  void writeData() {
-    // Create a new user with a first and last name
-    final user = User(id: "1",
-        username: "alove",
-        first: 'Ada',
-        last: 'Lovelace',
-        image: 'https://media.sciencephoto.com/image/h4120208/800wm/H4120208-Lady_Ada_Lovelace.jpg');
-
-    // Add a new document with a generated ID
-    db.collection("users").add(user.toJson()).then((DocumentReference doc) =>
-        print('DocumentSnapshot added with ID: ${doc.id}'));
+  void addFixedUser() {
+    addUser(username: "alove", first: "Ada", last: "Lovelace", image: null);
   }
 
+  /// Create a new user with the given username (which will be unique)
+  ///    and the given first name (required), last name and image url.
+  void addUser({required String username, required String first,
+    String? last, String? image}) async {
+    // First check to see if the username already exists
+    var existing = await db.collection("users").doc(username);
+    if (existing == null) {
+      final user = User(username: username,
+          first: first,
+          last: last,
+          image: image);
+
+      // Add a new document with a generated ID
+      db.collection("users").doc(username).set(user.toJson());
+      notifyListeners();
+      print("New user $username added");
+    } else {
+      print("Duplicate user $username - not added");
+    }
+  }
+
+  updateFirstNameFixed() {
+    updateFirstName(username: "alove", first: "Adada");
+  }
+
+  /// Update the user matching the given username with the given first name
+  void updateFirstName(
+      {required String username, required String first}) async {
+    var user = await db.collection("users").doc(username);
+    try {
+      await user.update({"first": first});
+      print("user $username successfully updated");
+      notifyListeners();
+    } catch (e) {
+      print("Error updating user $username: $e");
+    }
+  }
+
+void deleteFixedUser() {
+  deleteUser(username: "alove");
 }
+
+/// Delete the user that matches the given username
+void deleteUser({required String username}) async {
+  await db.collection("users")
+      .doc(username)
+      .delete();
+  notifyListeners();
+}}

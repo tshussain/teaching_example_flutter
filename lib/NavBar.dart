@@ -28,7 +28,7 @@ class NavBar extends StatelessWidget implements PreferredSizeWidget {
             semanticLabel: 'home',
           ),
           onPressed: () {
-            print('Home button');
+            Navigator.pushNamed(context, 'Home');
           },
         ),
         IconButton(
@@ -37,7 +37,7 @@ class NavBar extends StatelessWidget implements PreferredSizeWidget {
             semanticLabel: 'contact',
           ),
           onPressed: () {
-            print('Contact us button');
+            Navigator.pushNamed(context, 'ContactUs');
           },
         ),
         IconButton(
@@ -46,7 +46,7 @@ class NavBar extends StatelessWidget implements PreferredSizeWidget {
             semanticLabel: 'about',
           ),
           onPressed: () {
-            print('About us button');
+            Navigator.pushNamed(context, 'AboutUs');
           },
         ),
         IconButton(

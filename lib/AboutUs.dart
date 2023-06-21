@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 
+import 'DisplayUserGrid.dart';
 import 'MainLayout.dart';
 
 class AboutUs extends StatelessWidget {
@@ -10,7 +11,7 @@ class AboutUs extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MainLayout(
-        title: "Contact Us",
+        title: "About Us",
         child: Text("Hi.  We're cool - no, really we are.")
     );
   }
