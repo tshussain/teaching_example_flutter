@@ -26,6 +26,20 @@ class UserRepository extends ChangeNotifier {
     return users;
   }
 
+  Future<User> getFixedUser() {
+    return getUser(username:"alove");
+  }
+
+  /// Get the user with the given username (which will be unique)
+  Future<User> getUser({required String username}) async {
+    var existing = await db.collection("users").doc(username).get();
+    if (existing.data() == null) {
+      print("User $username not found");
+    }
+    return existing.data();
+  }
+
+
   void addFixedUser() {
     addUser(username: "alove", first: "Ada", last: "Lovelace", image: null);
   }
@@ -35,14 +49,14 @@ class UserRepository extends ChangeNotifier {
   void addUser({required String username, required String first,
     String? last, String? image}) async {
     // First check to see if the username already exists
-    var existing = await db.collection("users").doc(username);
-    if (existing == null) {
+    var existing = await db.collection("users").doc(username).get();
+    if (existing.data() == null) {
       final user = User(username: username,
           first: first,
           last: last,
           image: image);
 
-      // Add a new document with a generated ID
+      // Add a new document with the given username
       db.collection("users").doc(username).set(user.toJson());
       notifyListeners();
       print("New user $username added");
@@ -68,14 +82,24 @@ class UserRepository extends ChangeNotifier {
     }
   }
 
-void deleteFixedUser() {
-  deleteUser(username: "alove");
-}
+  void deleteFixedUser() {
+    deleteUser(username: "alove");
+  }
 
-/// Delete the user that matches the given username
-void deleteUser({required String username}) async {
-  await db.collection("users")
-      .doc(username)
-      .delete();
-  notifyListeners();
-}}
+  /// Delete the user that matches the given username
+  void deleteUser({required String username}) async {
+    var user = await db.collection("users").doc(username);
+    var doc = await user.get();
+    if (doc.data() == null) {
+      print("Unable to delete user $username - not found");
+    } else {
+      try {
+        await user.delete();
+        print("user $username successfully deleted");
+        notifyListeners();
+      } catch (e) {
+        print("Error deleting user $username: $e");
+      }
+    }
+  }
+}

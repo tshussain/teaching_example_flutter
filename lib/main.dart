@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
 import 'package:teaching_example_flutter/model/UserRepository.dart';
 import 'UserPage.dart';
+import 'UsersPage.dart';
 import 'firebase_options.dart';
 
 import 'AboutUs.dart';
@@ -34,7 +35,8 @@ class MyApp extends StatelessWidget {
           ),
           routes: {
             'Home': (BuildContext context) => const HomePage(),
-            'Users': (BuildContext context) => const UserPage(),
+            'Users': (BuildContext context) => const UsersPage(),
+            'User': (BuildContext context) => const UserPage(),
             'ContactUs': (BuildContext context) => const ContactUs(),
             'AboutUs': (BuildContext context) => const AboutUs()
           },
