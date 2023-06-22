@@ -18,7 +18,7 @@ class DisplayUserCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           // Ternary operator that check if an image is available
-          user.image == null
+          user.image == null || user.image!.isEmpty
               ? Text("No Image")
               : AspectRatio(
                   aspectRatio: 18.0 / 11.0,

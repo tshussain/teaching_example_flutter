@@ -9,7 +9,7 @@ class User {
   /* Named constructor to return a user object representing "no user"
        to avoid dealing with nulls (e.g., when a user is not found)
    */
-  User.noUser(): username="", first="", last=null, image=null;
+  User.noUser(): username="", first="", last="", image="";
 
   bool isNoUser() {
     return username == "";
