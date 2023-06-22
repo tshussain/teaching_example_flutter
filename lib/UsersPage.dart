@@ -17,10 +17,9 @@ class UsersPage extends StatelessWidget {
         child: Column(children: [
           TextButton(
               onPressed: () {
-                Provider.of<UserRepository>(context, listen: false)
-                    .addFixedUser();
+                Navigator.pushNamed(context, "Register");
               },
-              child: const Text("Add data")),
+              child: const Text("Register User")),
           TextButton(
               onPressed: () {
                 Navigator.pushNamed(context, 'User');

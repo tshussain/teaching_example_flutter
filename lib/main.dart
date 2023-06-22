@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
 import 'package:teaching_example_flutter/model/UserRepository.dart';
+import 'RegisterPage.dart';
 import 'UserPage.dart';
 import 'UsersPage.dart';
 import 'firebase_options.dart';
@@ -38,7 +39,8 @@ class MyApp extends StatelessWidget {
             'Users': (BuildContext context) => const UsersPage(),
             'User': (BuildContext context) => const UserPage(),
             'ContactUs': (BuildContext context) => const ContactUs(),
-            'AboutUs': (BuildContext context) => const AboutUs()
+            'AboutUs': (BuildContext context) => const AboutUs(),
+            'Register': (BuildContext context) => const RegisterPage()
           },
           home: const HomePage(),
         )

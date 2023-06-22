@@ -33,10 +33,14 @@ class UserRepository extends ChangeNotifier {
   /// Get the user with the given username (which will be unique)
   Future<User> getUser({required String username}) async {
     var existing = await db.collection("users").doc(username).get();
-    if (existing.data() == null) {
+    var data = await existing.data();
+    if (data == null) {
       print("User $username not found");
+      return User.noUser();
+    } else {
+      var user = User.fromJson(data);
+      return user;
     }
-    return existing.data();
   }
 
 

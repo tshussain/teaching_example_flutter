@@ -9,6 +9,7 @@ import 'model/UserRepository.dart';
 class UserPage extends StatelessWidget {
   const UserPage({super.key});
 
+  /// Page that get a user and displays the user in a card
   @override
   Widget build(BuildContext context) {
     return MainLayout(
@@ -19,7 +20,10 @@ class UserPage extends StatelessWidget {
             builder: (context, AsyncSnapshot<User> user) {
               if (!user.hasData) {
                 return CircularProgressIndicator();
-              } else {
+              } else if (user.data!.isNoUser()) {
+                return Text("User not found");
+              }
+              else {
                 return DisplayUserCard(user: user.data!);
               }
             }));

@@ -9,7 +9,10 @@ class DisplayUserCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
+    return Container(
+      height: 400,
+        width: 300,
+        child: Card(
       clipBehavior: Clip.antiAlias,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -34,6 +37,6 @@ class DisplayUserCard extends StatelessWidget {
           ),
         ],
       ),
-    );
+    ));
   }
 }
