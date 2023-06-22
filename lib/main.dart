@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
 import 'package:teaching_example_flutter/model/UserRepository.dart';
+import 'AuthGate.dart';
 import 'RegisterPage.dart';
 import 'UserPage.dart';
 import 'UsersPage.dart';
@@ -12,6 +13,7 @@ import 'ContactUs.dart';
 import 'HomePage.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
@@ -42,7 +44,7 @@ class MyApp extends StatelessWidget {
             'AboutUs': (BuildContext context) => const AboutUs(),
             'Register': (BuildContext context) => const RegisterPage()
           },
-          home: const HomePage(),
+          home: const AuthGate(),
         )
       );
   }
