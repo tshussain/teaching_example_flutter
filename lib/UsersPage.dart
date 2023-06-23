@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -12,6 +13,7 @@ class UsersPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final firebaseUser = context.watch<User?>();
     return MainLayout(
         title: "Users",
         child: Column(children: [
@@ -38,7 +40,7 @@ class UsersPage extends StatelessWidget {
               },
               child: const Text("Delete user")),
           const Text("List of All Users"),
-          UserGrid()
+          firebaseUser != null ? UserGrid() : Text("Please log in to see list of users")
         ]));
   }
 }

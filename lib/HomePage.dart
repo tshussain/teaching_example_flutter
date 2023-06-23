@@ -3,9 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:teaching_example_flutter/MainLayout.dart';
 
-import 'DisplayUserGrid.dart';
 import 'model/AuthRepository.dart';
-import 'model/ProfileRepository.dart';
 
 
 class HomePage extends StatelessWidget {
@@ -13,7 +11,7 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final firebaseUser = context.watch<User>();
+    final firebaseUser = context.watch<User?>();
     return MainLayout(
         title: "Home",
         child: Column(

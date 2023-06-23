@@ -3,7 +3,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
 import 'package:teaching_example_flutter/model/AuthRepository.dart';
 import 'package:teaching_example_flutter/model/ProfileRepository.dart';
-import 'AuthGate.dart';
 import 'RegisterPage.dart';
 import 'UserPage.dart';
 import 'UsersPage.dart';
