@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-import 'model/User.dart';
+import 'model/Profile.dart';
 
 class DisplayUserCard extends StatelessWidget {
   const DisplayUserCard({super.key, required this.user});
 
-  final User user;
+  final Profile user;
 
   @override
   Widget build(BuildContext context) {

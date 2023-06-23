@@ -3,8 +3,8 @@ import 'package:provider/provider.dart';
 
 import 'DisplayUserCard.dart';
 import 'MainLayout.dart';
-import 'model/User.dart';
-import 'model/UserRepository.dart';
+import 'model/Profile.dart';
+import 'model/ProfileRepository.dart';
 
 class UserPage extends StatelessWidget {
   const UserPage({super.key});
@@ -14,10 +14,10 @@ class UserPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return MainLayout(
         title: "Display User",
-        child: FutureBuilder<User>(
-            future: Provider.of<UserRepository>(context, listen: false)
+        child: FutureBuilder<Profile>(
+            future: Provider.of<ProfileRepository>(context, listen: false)
                 .getFixedUser(),
-            builder: (context, AsyncSnapshot<User> user) {
+            builder: (context, AsyncSnapshot<Profile> user) {
               if (!user.hasData) {
                 return CircularProgressIndicator();
               } else if (user.data!.isNoUser()) {

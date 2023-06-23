@@ -4,8 +4,8 @@ import 'package:provider/provider.dart';
 import 'DisplayUserGrid.dart';
 import 'MainLayout.dart';
 import 'UserGrid.dart';
-import 'model/User.dart';
-import 'model/UserRepository.dart';
+import 'model/Profile.dart';
+import 'model/ProfileRepository.dart';
 
 class UsersPage extends StatelessWidget {
   const UsersPage({super.key});
@@ -27,13 +27,13 @@ class UsersPage extends StatelessWidget {
               child: const Text("Get user")),
           TextButton(
               onPressed: () {
-                Provider.of<UserRepository>(context, listen: false)
+                Provider.of<ProfileRepository>(context, listen: false)
                     .updateFirstNameFixed();
               },
               child: const Text("Update user")),
           TextButton(
               onPressed: () {
-                Provider.of<UserRepository>(context, listen: false)
+                Provider.of<ProfileRepository>(context, listen: false)
                     .deleteFixedUser();
               },
               child: const Text("Delete user")),

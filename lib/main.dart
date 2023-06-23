@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
-import 'package:teaching_example_flutter/model/UserRepository.dart';
+import 'package:teaching_example_flutter/model/AuthRepository.dart';
+import 'package:teaching_example_flutter/model/ProfileRepository.dart';
 import 'AuthGate.dart';
 import 'RegisterPage.dart';
 import 'UserPage.dart';
@@ -25,10 +26,17 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    AuthRepository authRepository = AuthRepository();
     return
       MultiProvider(
         providers: [
-           ChangeNotifierProvider(create: (context) => UserRepository()),
+          Provider<AuthRepository>(
+            create: (_) => authRepository,
+          ),
+          StreamProvider(
+            create: (context) => context.read<AuthRepository>().authState, initialData: null,
+          ),
+          ChangeNotifierProvider(create: (context) => ProfileRepository(authRepository)),
         ],
         child: MaterialApp(
           title: 'Flutter Demo',
@@ -44,7 +52,7 @@ class MyApp extends StatelessWidget {
             'AboutUs': (BuildContext context) => const AboutUs(),
             'Register': (BuildContext context) => const RegisterPage()
           },
-          home: const AuthGate(),
+          initialRoute: 'Home',
         )
       );
   }

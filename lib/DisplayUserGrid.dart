@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:teaching_example_flutter/model/UserRepository.dart';
+import 'package:teaching_example_flutter/model/ProfileRepository.dart';
 import 'package:intl/intl.dart';
 
 import 'DisplayUserCard.dart';
-import 'model/User.dart';
+import 'model/Profile.dart';
 
 class DisplayUserGrid extends StatelessWidget {
   const DisplayUserGrid({super.key, required this.users});
 
-  final List<User> users;
+  final List<Profile> users;
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,7 @@ class DisplayUserGrid extends StatelessWidget {
   }
 
   List<Widget> _buildGridCards(
-      {required BuildContext context, required List<User>? users}) {
+      {required BuildContext context, required List<Profile>? users}) {
     if (users == null || users.isEmpty) {
       return const <Card>[];
     }

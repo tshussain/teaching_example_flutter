@@ -1,69 +1,80 @@
 import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
-import 'User.dart';
+import 'AuthRepository.dart';
+import 'Profile.dart';
 
 /// Repository (i.e. Model) that provides access to a Firestore
 ///    database.  Change actions will notify listeners via the associated provider.
-class UserRepository extends ChangeNotifier {
+class ProfileRepository extends ChangeNotifier {
   var db;
+  AuthRepository authRepository;
 
   /* Initialize the firestore database and remember that db value */
-  UserRepository() {
+  ProfileRepository(this.authRepository) {
     db = FirebaseFirestore.instance;
   }
 
   /// Reads all users from the database and returns a list of User.
   ///   Return value is a future:  Future<List<User>>
-  Future<List<User>> getAllUsers() async {
+  Future<List<Profile>> getAllUsers() async {
     var results = await db.collection("users").get();
-    List<User> users = [];
+    List<Profile> users = [];
     for (var doc in results.docs) {
-      var user = User.fromJson(doc.data());
+      var user = Profile.fromJson(doc.data());
       users.add(user);
     }
-
     return users;
   }
 
-  Future<User> getFixedUser() {
+  Future<Profile> getFixedUser() {
     return getUser(username:"alove");
   }
 
   /// Get the user with the given username (which will be unique)
-  Future<User> getUser({required String username}) async {
+  /// Returns a Future<User> with User.noUser (for which user.isNoUser()
+  ///   will be true) if the user is not found.
+  /// Returns a Future<User> with appropriate data if found.
+  Future<Profile> getUser({required String username}) async {
     var existing = await db.collection("users").doc(username).get();
     var data = await existing.data();
     if (data == null) {
       print("User $username not found");
-      return User.noUser();
+      return Profile.noUser();
     } else {
-      var user = User.fromJson(data);
+      var user = Profile.fromJson(data);
       return user;
     }
   }
 
 
-  void addFixedUser() {
-    addUser(username: "alove", first: "Ada", last: "Lovelace", image: null);
-  }
+  // void addFixedUser() {
+  //   addUser(username: "alove", first: "Ada", last: "Lovelace", image: null);
+  // }
 
   /// Create a new user with the given username (which will be unique)
   ///    and the given first name (required), last name and image url.
   void addUser({required String username, required String first,
-    String? last, String? image}) async {
+    String? last, String? image, required String password}) async {
     // First check to see if the username already exists
     var existing = await db.collection("users").doc(username).get();
     if (existing.data() == null) {
-      final user = User(username: username,
-          first: first,
-          last: last,
-          image: image);
+      String result = await authRepository.signUp(email: username, password: password);
+      if (result == "Success") {
+        final user = Profile(username: username,
+            first: first,
+            last: last,
+            image: image);
 
-      // Add a new document with the given username
-      db.collection("users").doc(username).set(user.toJson());
-      notifyListeners();
-      print("New user $username added");
+        String enteredPassword = "junk";
+        // Add a new document with the given username
+        db.collection("users").doc(username).set(user.toJson());
+
+        notifyListeners();
+        print("New user $username added");
+      } else {
+        print("Failed to create user on authentication server: " + result);
+      }
     } else {
       print("Duplicate user $username - not added");
     }

@@ -1,6 +1,8 @@
 
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'DisplayUserGrid.dart';
 import 'MainLayout.dart';
@@ -10,9 +12,10 @@ class AboutUs extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MainLayout(
+    final firebaseUser = context.watch<User?>();
+    return MainLayout(
         title: "About Us",
-        child: Text("Hi.  We're cool - no, really we are.")
+        child: firebaseUser == null ? Text("Not logged in - Please do so.") : Text("Hi.  We're cool - no, really we are.")
     );
   }
 }

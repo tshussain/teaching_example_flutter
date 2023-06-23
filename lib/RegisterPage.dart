@@ -1,9 +1,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:teaching_example_flutter/model/AuthRepository.dart';
 
 import 'MainLayout.dart';
-import 'model/UserRepository.dart';
+import 'model/ProfileRepository.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -90,8 +91,14 @@ class _RegisterPageState extends State<RegisterPage> {
               ElevatedButton(
                 child: const Text('NEXT'),
                 onPressed: () {
-                  Provider.of<UserRepository>(context, listen: false)
-                      .addUser(username:_usernameController.text, first:_firstnameController.text, last: _lastnameController.text, image:_imageUrlController.text);
+                  // context.read<AuthRepository>().signUp(
+                  //   email: _usernameController.text.trim(),
+                  //   ,
+                  // );
+                  Provider.of<ProfileRepository>(context, listen: false)
+                      .addUser(username:_usernameController.text, first:_firstnameController.text, last: _lastnameController.text, image:_imageUrlController.text,
+                            password: _passwordController.text.trim()
+                  );
                   Navigator.pop(context);
                 },
               ),
