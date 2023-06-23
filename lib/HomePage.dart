@@ -12,6 +12,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final firebaseUser = context.watch<User?>();
+    const String fixedUsername = "ooo@ooo.com";
     return MainLayout(
         title: "Home",
         child: Column(
@@ -25,11 +26,11 @@ class HomePage extends StatelessWidget {
             TextButton(
                 onPressed: () {
                   context.read<AuthRepository>().signIn(
-                    email: ("ooo@ooo.ooo"),
+                    email: (fixedUsername),
                     password: "Abcd1234!"
                   );
                 },
-                child: const Text("Log In hi@hi.com")),
+                child: const Text("Log In $fixedUsername")),
             TextButton(
                 onPressed: () {
                   context.read<AuthRepository>().signOut(
