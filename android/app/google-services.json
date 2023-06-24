@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "40314714081",
+    "firebase_url": "https://mapclassexample-34c61-default-rtdb.firebaseio.com",
+    "project_id": "mapclassexample-34c61",
+    "storage_bucket": "mapclassexample-34c61.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:40314714081:android:4967fd581481ded77184a0",
+        "android_client_info": {
+          "package_name": "com.example.teaching_example_flutter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "40314714081-buknlb3n4415p6148e3lhtqr848ajscd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBx09O8jswWLqY7F1aFpDKfuTrox-kqADQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "40314714081-buknlb3n4415p6148e3lhtqr848ajscd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
