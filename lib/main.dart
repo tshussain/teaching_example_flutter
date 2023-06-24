@@ -20,7 +20,7 @@ void main() async {
   runApp(const MyApp());
 }
 
-// Some docs Branch2
+// Adding documentation
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
   // This widget is the root of your application.
