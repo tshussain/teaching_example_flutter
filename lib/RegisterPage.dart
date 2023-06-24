@@ -1,7 +1,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:teaching_example_flutter/model/AuthRepository.dart';
 
 import 'MainLayout.dart';
 import 'model/ProfileRepository.dart';

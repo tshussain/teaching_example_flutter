@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:teaching_example_flutter/model/ProfileRepository.dart';
 import 'package:intl/intl.dart';
 
 import 'DisplayUserCard.dart';
